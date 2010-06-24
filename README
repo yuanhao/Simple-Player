@@ -1,0 +1,28 @@
+Simple HTML5 Audio Player Demo
+
+Usage:
+
+It's a so simple HTML5 audio player. See the source code of this page to learn how to use it. 
+At first you need include simpleplayer.css and jquery.simpleplayer.js. Then initialize the player after document loaded, e.g.: 
+$(".player").player();
+
+Options:
+
+progressbarWidth: the width of the progressbar
+progressbarHeight: the height of the progressbar
+progressbarColor: color of the progressbar
+progressbarBGColor: background color of the progressbar
+defaultVolume: volume as default
+Style:
+
+You can easly use CSS to style up this simple player by change of simpleplayer.css or define it in your CSS files.
+
+TODO:
+
+Video Support
+Volume Adjust
+More Control of Media
+Theme
+A befault html5 & css 3 demo page
+...
+Let me know if you like this simple player. @yuanhao
