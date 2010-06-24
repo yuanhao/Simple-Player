@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=620">
+    <title>Simple HTML5 Player Demo</title>
+    <link rel="stylesheet" href="simpleplayer.css" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script> 
+    <script src="jquery.simpleplayer.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var settings = {
+                progressbarWidth: '200px',
+                progressbarHeight: '5px',
+                progressbarColor: '#22ccff',
+                progressbarBGColor: '#eeeeee',
+                defaultVolume: 0.8
+            };
+            $(".player").player(settings);
+        });
+    </script>
+</head>
+<body>
+    <h1>Simple HTML5 Audio Player Demo</h1>
+    <div>
+        <audio class="player" src="http://upload.wikimedia.org/wikipedia/commons/8/82/Riddle_song.ogg">  
+          Your browser does not support the <code>audio</code> element.  
+        </audio>
+    </div>
+    <h3>
+        Usage:
+    </h3>
+    <p>
+        It's a so simple HTML5 audio player. See the source code of this page to
+        learn how to use it. 
+        <br />
+        At first you need include <i>simpleplayer.css</i> and <i>jquery.simpleplayer.js</i>.
+        Then initialize the player after document loaded, e.g.:
+        <br />
+        <code>
+            $(".player").player();
+        </code>
+    </p>
+    <h3>
+        Options:
+    </h3>
+    <ul>
+        <li>progressbarWidth: the width of the progressbar</li>
+        <li>progressbarHeight: the height of the progressbar</li>
+        <li>progressbarColor: color of the progressbar</li>
+        <li>progressbarBGColor: background color of the progressbar</li>
+        <li>defaultVolume: volume as default</li>
+    </ul>
+    <h3>
+        Style:
+    </h3>
+    <p>
+        You can easly use CSS to style up this simple player by change of
+        simpleplayer.css or define it in your CSS files.
+    </p>
+    <h3>TODO:</h3>
+    <ul>
+        <li>Video Support</li>
+        <li>Volume Adjust</li>
+        <li>More Control of Media</li>
+        <li>Theme</li>
+        <li>A befault html5 & css 3 demo page</li>
+        <li>...</li>
+    </ul>
+    <h3>Let me know if you like this simple player. <a target="_blank" href="http://twitter.com/yuanhao">@yuanhao</a></h3>
+</body>
+</html>
