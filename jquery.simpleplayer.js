@@ -1,0 +1,116 @@
+/*
+ * SimplePlayer - A jQuery Plugin
+ * @requires jQuery v1.4.2 or later
+ *
+ * SimplePlayer is a html5 audio player
+ *
+ * Licensed under the MIT:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Copyright (c) 2010-, Yuanhao Li (jay_21cn -[at]- hotmail [*dot*] com)
+ */
+(function($) {
+    $.fn.player = function(settings) {
+        var config = {
+            progressbarWidth: '200px',
+            progressbarHeight: '5px',
+            progressbarColor: '#22ccff',
+            progressbarBGColor: '#eeeeee',
+            defaultVolume: 0.8,
+            playButtonImage: null,
+            stopButtonImage: null,
+        };
+
+        if (settings) {
+            $.extend(config, settings);
+        }
+
+        var playControl = '<span class="simpleplayer-control" style="font-size: 16px; position: relative; bottom: -2px;">&gt;</span>';
+        if (config.playButtonImage) {
+            playControl = '<div class="simpleplayer-control" style="display: inline; position: relative; top: 5px;">' +
+                          '<img src="' + config.playButtonImage + '" /></div>';
+        }
+
+        var stopControl = '<span class="simpleplayer-control" style="font-size: 16px; position: relative; bottom: -2px;">&bull;</span>';
+        if (config.stopButtonImage) {
+            stopControl = '<div class="simpleplayer-control" style="display: inline; position: relative; top: 5px;">' +
+                          '<img src="' + config.stopButtonImage + '" /></div>';
+        }
+
+        this.each(function() {
+            $(this).wrap('<div class="simple-player-container" style="background-color: #ddd;' + 
+                         ' padding: 0 10px 5px 5px;" />').parent().prepend(
+                '<div><ul>' + 
+                    '<li style="display: inline-block; padding: 0 5px; "><a style="text-decoration: none;"' +
+                    ' class="start-button" href="javascript:void(0)">' + playControl + '</a></li>' + 
+                    '<li class="progressbar-wrapper" style="display: inline-block; cursor: pointer; width:' + config.progressbarWidth + ';">' + 
+                        '<span style="display: block; background-color: ' + config.progressbarBGColor + '; width: 100%; ">' + 
+                        '<span class="progressbar" style="display: block; background-color: ' + config.progressbarColor +
+                                                         '; height: ' + config.progressbarHeight + '; width: 0%; ">' +
+                        '</span></span>' + 
+                    '</li>' + 
+                '</ul></div>'
+            );
+
+            var simplePlayer = $(this).get(0);
+            var button = $(this).parent().find('.start-button');
+            var progressbarWrapper = $(this).parent().find('.progressbar-wrapper');
+            var progressbar = $(this).parent().find('.progressbar');
+
+            simplePlayer.volume = config.defaultVolume;
+
+            button.click(function() {
+                if (simplePlayer.paused) {
+                    simplePlayer.play();
+                    if (config.stopButtonImage) {
+                        $(this).find('img').attr('src', config.stopButtonImage);
+                    } else {
+                        $(this).children('span').html('&bull;');
+                    }
+                } else {
+                    simplePlayer.pause();
+                    if (config.playButtonImage) {
+                        $(this).find('img').attr('src', config.playButtonImage);
+                    } else {
+                        $(this).children('span').html('&gt;');
+                    }
+                }
+            });
+
+            progressbarWrapper.click(function(e) {
+                if (simplePlayer.duration != 0) {
+                    left = $(this).offset().left;
+                    offset = e.pageX - left;
+                    percent = offset / progressbarWrapper.width();
+                    duration_seek = percent * simplePlayer.duration;
+                    simplePlayer.currentTime = duration_seek;
+                }
+            });
+
+
+            $(simplePlayer).bind('ended', function(evt) {
+                simplePlayer.pause();
+                if (config.playButtonImage) {
+                    button.find('img').attr('src', config.playButtonImage);
+                } else {
+                    button.children('span').html('&gt;');
+                }
+                progressbar.css('width', '0%');
+            });
+
+            $(simplePlayer).bind('timeupdate', function(e) {
+                duration = this.duration;
+                time = this.currentTime;
+                fraction = time / duration;
+                percent = fraction * 100;
+                if (percent) progressbar.css('width', percent + '%');
+            });
+
+            if (simplePlayer.duration > 0) {
+                $(this).parent().css('display', 'inline-block');
+            }
+        });
+
+        return this;
+    };
+})(jQuery);
