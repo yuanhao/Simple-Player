@@ -16,26 +16,15 @@
             progressbarHeight: '5px',
             progressbarColor: '#22ccff',
             progressbarBGColor: '#eeeeee',
-            defaultVolume: 0.8,
-            playButtonImage: null,
-            stopButtonImage: null,
+            defaultVolume: 0.8
         };
 
         if (settings) {
             $.extend(config, settings);
         }
 
-        var playControl = '<span class="simpleplayer-control" style="font-size: 16px; position: relative; bottom: -2px;">&gt;</span>';
-        if (config.playButtonImage) {
-            playControl = '<div class="simpleplayer-control" style="display: inline; position: relative; top: 5px;">' +
-                          '<img src="' + config.playButtonImage + '" /></div>';
-        }
-
-        var stopControl = '<span class="simpleplayer-control" style="font-size: 16px; position: relative; bottom: -2px;">&bull;</span>';
-        if (config.stopButtonImage) {
-            stopControl = '<div class="simpleplayer-control" style="display: inline; position: relative; top: 5px;">' +
-                          '<img src="' + config.stopButtonImage + '" /></div>';
-        }
+        var playControl = '<span class="simpleplayer-play-control"></span>';
+        var stopControl = '<span class="simpleplayer-stop-control"></span>';
 
         this.each(function() {
             $(this).wrap('<div class="simple-player-container" style="background-color: #ddd;' + 
@@ -62,18 +51,10 @@
             button.click(function() {
                 if (simplePlayer.paused) {
                     simplePlayer.play();
-                    if (config.stopButtonImage) {
-                        $(this).find('img').attr('src', config.stopButtonImage);
-                    } else {
-                        $(this).children('span').html('&bull;');
-                    }
+                    $(this).find('.simpleplayer-play-control').addClass('simpleplayer-stop-control').removeClass('simpleplayer-play-control');
                 } else {
                     simplePlayer.pause();
-                    if (config.playButtonImage) {
-                        $(this).find('img').attr('src', config.playButtonImage);
-                    } else {
-                        $(this).children('span').html('&gt;');
-                    }
+                    $(this).find('.simpleplayer-stop-control').addClass('simpleplayer-play-control').removeClass('simpleplayer-stop-control');
                 }
             });
 
@@ -90,11 +71,7 @@
 
             $(simplePlayer).bind('ended', function(evt) {
                 simplePlayer.pause();
-                if (config.playButtonImage) {
-                    button.find('img').attr('src', config.playButtonImage);
-                } else {
-                    button.children('span').html('&gt;');
-                }
+                button.find('.simpleplayer-stop-control').addClass('simpleplayer-play-control').removeClass('simpleplayer-stop-control');
                 progressbar.css('width', '0%');
             });
 
