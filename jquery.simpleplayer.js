@@ -50,6 +50,11 @@
 
             button.click(function() {
                 if (simplePlayer.paused) {
+                    /*stop all playing songs*/
+                    $.each($('audio'), function () {
+    					this.pause();
+						$(this).parent().find('.simpleplayer-stop-control').addClass('simpleplayer-play-control').removeClass('simpleplayer-stop-control');
+					});
                     simplePlayer.play();
                     $(this).find('.simpleplayer-play-control').addClass('simpleplayer-stop-control').removeClass('simpleplayer-play-control');
                 } else {
