@@ -27,8 +27,9 @@
         var stopControl = '<span class="simpleplayer-stop-control"></span>';
 
         this.each(function() {
-            $(this).wrap('<div class="simple-player-container" style="background-color: #ddd;' + 
-                         ' padding: 0 10px 5px 5px;" />').parent().prepend(
+            $(this).before('<div class="simple-player-container" style="background-color: #ddd; padding: 0 10px 5px 5px;">');
+            $(this).after('</div>');
+            $(this).parent().find('.simple-player-container').prepend(
                 '<div><ul>' + 
                     '<li style="display: inline-block; padding: 0 5px; "><a style="text-decoration: none;"' +
                     ' class="start-button" href="javascript:void(0)">' + playControl + '</a></li>' + 
@@ -90,6 +91,10 @@
 
             if (simplePlayer.duration > 0) {
                 $(this).parent().css('display', 'inline-block');
+            }
+
+            if ($(this).attr('autoplay') == 'autoplay') {
+                button.click();
             }
         });
 

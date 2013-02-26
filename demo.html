@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=620">
     <title>Simple HTML5 Player Demo</title>
     <link rel="stylesheet" href="simpleplayer.css" type="text/css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script> 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="jquery.simpleplayer.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -24,6 +24,11 @@
     <h1>Simple HTML5 Audio Player Demo</h1>
     <div>
         <audio class="player" src="http://upload.wikimedia.org/wikipedia/commons/8/82/Riddle_song.ogg">  
+          Your browser does not support the <code>audio</code> element.  
+        </audio>
+    </div>
+    <div>
+        <audio class="player" autoplay="autoplay" src="http://upload.wikimedia.org/wikipedia/commons/8/82/Riddle_song.ogg">  
           Your browser does not support the <code>audio</code> element.  
         </audio>
     </div>
